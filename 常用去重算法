@@ -1,0 +1,49 @@
+/*双循环遍历去重
+ * 定义数组  遍历数组中每一个数，每一个数再和它后面的每一个数去对比
+ * 如果出现重复就删掉这个数，注意数组塌陷问题*/
+var ary = [1, 2, 2, 2, 3, 2, 1, 2, 3, 2, 2, 3, 4, 3, 2, 2, 3];
+for (var i = 0; i < ary.length - 1; i++) {
+    var cur = ary[i];
+    for (var j = i + 1; j < ary.length; j++) {
+        if (cur === ary[j]){
+            ary.splice(j,1);
+            j--;
+        }
+
+    }
+
+}
+console.log(ary);
+
+/*索引去重
+ * 定义数组 遍历数组中的每一个数，将此数后面的所有数作为一个新数组，如果
+ * 此数存在于新数组中，删掉此数 注意数组塌陷问题*/
+var ary = [1, 2, 2, 2, 3, 2, 1, 2, 3, 2, 2, 3, 4, 3, 2, 2, 3];
+for (var i = 0; i < ary.length; i++) {
+    var cur = ary[i];
+    var curNextAry = ary.slice(i + 1);
+    if (curNextAry.indexOf(cur) !== -1){
+        ary[i] = ary[ary.length -1];
+        ary.length--;
+        i--;
+    }
+}
+console.log(ary);
+
+/*对象去重
+ * 定义数组   将数组中的属性名和属性值创为一个对象，作为一个筛选器，在筛选器里的就删，不在
+ * 的就留着，最后输出数组
+ * */
+var ary = [1, 2, 2, 2, 3, 2, 1, 2, 3, 2, 2, 3, 4, 3, 2, 2, 3];
+var obj = {};
+for (var i = 0; i < ary.length; i++) {
+    var cur = ary[i];
+    if (typeof obj[cur] !== 'undefined') {
+        ary[i] = ary[ary.length - 1];
+        ary.length--;
+        i--;
+        continue;
+    }
+    obj[cur] = ary[i];
+}
+console.log(ary);
